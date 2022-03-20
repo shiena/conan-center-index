@@ -20,7 +20,7 @@ class SqlcipherConan(ConanFile):
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
-        "crypto_library": ["openssl", "libressl", "commoncrypto"],
+        "crypto_library": ["openssl", "libressl", "commoncrypto", "libtomcrypt"],
         "with_largefile": [True, False],
         "temporary_store": ["always_file", "default_file", "default_memory", "always_memory"],
     }
@@ -69,6 +69,8 @@ class SqlcipherConan(ConanFile):
             self.requires("openssl/1.1.1n")
         elif self.options.crypto_library == "libressl":
             self.requires("libressl/3.4.3")
+        elif self.options.crypto_library == "libtomcrypt":
+            self.requires("libtomcrypt/1.18.2")
 
     def validate(self):
         if self.options.crypto_library == "commoncrypto" and not tools.is_apple_os(self.settings.os):
