@@ -1,5 +1,5 @@
 diff --git a/Jolt/Jolt.cmake b/Jolt/Jolt.cmake
-index 78a4149a..0bc7a80b 100644
+index 78a4149a..048bd708 100644
 --- a/Jolt/Jolt.cmake
 +++ b/Jolt/Jolt.cmake
 @@ -13,6 +13,7 @@ set(JOLT_PHYSICS_SRC_FILES
@@ -10,7 +10,21 @@ index 78a4149a..0bc7a80b 100644
  	${JOLT_PHYSICS_ROOT}/Core/ARMNeon.h
  	${JOLT_PHYSICS_ROOT}/Core/Array.h
  	${JOLT_PHYSICS_ROOT}/Core/Atomics.h
-@@ -365,6 +366,7 @@ set(JOLT_PHYSICS_SRC_FILES
+@@ -140,8 +141,13 @@ set(JOLT_PHYSICS_SRC_FILES
+ 	${JOLT_PHYSICS_ROOT}/Math/Vec8.h
+ 	${JOLT_PHYSICS_ROOT}/Math/Vec8.inl
+ 	${JOLT_PHYSICS_ROOT}/Math/Vector.h
++	${JOLT_PHYSICS_ROOT}/ObjectStream/ObjectStream.h
++	${JOLT_PHYSICS_ROOT}/ObjectStream/SerializableAttribute.h
++	${JOLT_PHYSICS_ROOT}/ObjectStream/SerializableAttributeEnum.h
++	${JOLT_PHYSICS_ROOT}/ObjectStream/SerializableAttributeTyped.h
+ 	${JOLT_PHYSICS_ROOT}/ObjectStream/SerializableObject.cpp
+ 	${JOLT_PHYSICS_ROOT}/ObjectStream/SerializableObject.h
++	${JOLT_PHYSICS_ROOT}/ObjectStream/TypeDeclarations.h
+ 	${JOLT_PHYSICS_ROOT}/Physics/Body/AllowedDOFs.h
+ 	${JOLT_PHYSICS_ROOT}/Physics/Body/Body.cpp
+ 	${JOLT_PHYSICS_ROOT}/Physics/Body/Body.h
+@@ -365,6 +371,7 @@ set(JOLT_PHYSICS_SRC_FILES
  	${JOLT_PHYSICS_ROOT}/Physics/SoftBody/SoftBodyShape.h
  	${JOLT_PHYSICS_ROOT}/Physics/SoftBody/SoftBodySharedSettings.cpp
  	${JOLT_PHYSICS_ROOT}/Physics/SoftBody/SoftBodySharedSettings.h
@@ -18,3 +32,60 @@ index 78a4149a..0bc7a80b 100644
  	${JOLT_PHYSICS_ROOT}/Physics/SoftBody/SoftBodyVertex.h
  	${JOLT_PHYSICS_ROOT}/Physics/StateRecorder.h
  	${JOLT_PHYSICS_ROOT}/Physics/StateRecorderImpl.cpp
+@@ -435,7 +442,6 @@ if (ENABLE_OBJECT_STREAM)
+ 		${JOLT_PHYSICS_SRC_FILES}
+ 		${JOLT_PHYSICS_ROOT}/ObjectStream/GetPrimitiveTypeOfType.h
+ 		${JOLT_PHYSICS_ROOT}/ObjectStream/ObjectStream.cpp
+-		${JOLT_PHYSICS_ROOT}/ObjectStream/ObjectStream.h
+ 		${JOLT_PHYSICS_ROOT}/ObjectStream/ObjectStreamBinaryIn.cpp
+ 		${JOLT_PHYSICS_ROOT}/ObjectStream/ObjectStreamBinaryIn.h
+ 		${JOLT_PHYSICS_ROOT}/ObjectStream/ObjectStreamBinaryOut.cpp
+@@ -449,11 +455,7 @@ if (ENABLE_OBJECT_STREAM)
+ 		${JOLT_PHYSICS_ROOT}/ObjectStream/ObjectStreamTextOut.cpp
+ 		${JOLT_PHYSICS_ROOT}/ObjectStream/ObjectStreamTextOut.h
+ 		${JOLT_PHYSICS_ROOT}/ObjectStream/ObjectStreamTypes.h
+-		${JOLT_PHYSICS_ROOT}/ObjectStream/SerializableAttribute.h
+-		${JOLT_PHYSICS_ROOT}/ObjectStream/SerializableAttributeEnum.h
+-		${JOLT_PHYSICS_ROOT}/ObjectStream/SerializableAttributeTyped.h
+ 		${JOLT_PHYSICS_ROOT}/ObjectStream/TypeDeclarations.cpp
+-		${JOLT_PHYSICS_ROOT}/ObjectStream/TypeDeclarations.h
+ 	)
+ endif()
+ 
+diff --git a/Jolt/ObjectStream/SerializableAttributeEnum.h b/Jolt/ObjectStream/SerializableAttributeEnum.h
+index b506ff98..c6f241ea 100644
+--- a/Jolt/ObjectStream/SerializableAttributeEnum.h
++++ b/Jolt/ObjectStream/SerializableAttributeEnum.h
+@@ -4,11 +4,11 @@
+ 
+ #pragma once
+ 
++#ifdef JPH_OBJECT_STREAM
++
+ #include <Jolt/ObjectStream/SerializableAttribute.h>
+ #include <Jolt/ObjectStream/ObjectStream.h>
+ 
+-#ifdef JPH_OBJECT_STREAM
+-
+ JPH_NAMESPACE_BEGIN
+ 
+ //////////////////////////////////////////////////////////////////////////////////////////
+diff --git a/Jolt/ObjectStream/SerializableAttributeTyped.h b/Jolt/ObjectStream/SerializableAttributeTyped.h
+index 296495ee..ce18325c 100644
+--- a/Jolt/ObjectStream/SerializableAttributeTyped.h
++++ b/Jolt/ObjectStream/SerializableAttributeTyped.h
+@@ -4,12 +4,12 @@
+ 
+ #pragma once
+ 
++#ifdef JPH_OBJECT_STREAM
++
+ #include <Jolt/ObjectStream/SerializableAttribute.h>
+ #include <Jolt/ObjectStream/GetPrimitiveTypeOfType.h>
+ #include <Jolt/ObjectStream/ObjectStream.h>
+ 
+-#ifdef JPH_OBJECT_STREAM
+-
+ JPH_NAMESPACE_BEGIN
+ 
+ //////////////////////////////////////////////////////////////////////////////////////////
